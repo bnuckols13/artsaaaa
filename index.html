@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow & Light - A Multi-Modal Journey Through Inner Parts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-teal: #5EEAD4;
+            --deep-teal: #14B8A6;
+            --sage-green: #87A878;
+            --soft-sage: #A8C09A;
+            --warm-rose: #FDA4AF;
+            --soft-coral: #F4A09C;
+            --soft-purple: #C084FC;
+            --gentle-lavender: #B19CD9;
+            --calm-blue: #93C5FD;
+            --midnight: #1E293B;
+            --slate: #475569;
+            --warm-gray: #6B6B6B;
+            --pearl: #F8FAFC;
+            --cream: #FFF8E7;
+            --parchment: #F5E6D3;
+            --earth-brown: #8B7355;
+            --gradient-earth: linear-gradient(135deg, #87A878 0%, #7BA7BC 100%);
+            --gradient-mystical: linear-gradient(135deg, #B19CD9 0%, #87A878 100%);
+            --gradient-warm: linear-gradient(135deg, #FDA4AF 0%, #C084FC 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, rgba(135, 168, 120, 0.08) 0%, rgba(177, 156, 217, 0.08) 100%);
+            min-height: 100vh;
+            color: var(--midnight);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating background elements - mystical feel */
+        .bg-circle {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            animation: float 25s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .bg-circle1 {
+            width: 350px;
+            height: 350px;
+            background: var(--sage-green);
+            top: -120px;
+            right: -120px;
+        }
+
+        .bg-circle2 {
+            width: 450px;
+            height: 450px;
+            background: var(--gentle-lavender);
+            bottom: -180px;
+            left: -180px;
+            animation-delay: -8s;
+        }
+
+        .bg-circle3 {
+            width: 280px;
+            height: 280px;
+            background: var(--warm-rose);
+            top: 40%;
+            right: 8%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -40px) scale(1.15); }
+            66% { transform: translate(-30px, 30px) scale(0.85); }
+        }
+
+        /* Subtle rune symbols as decorative elements */
+        .rune-decoration {
+            position: fixed;
+            font-size: 3rem;
+            opacity: 0.04;
+            color: var(--earth-brown);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .rune-1 { top: 15%; left: 10%; }
+        .rune-2 { top: 60%; right: 15%; }
+        .rune-3 { bottom: 20%; left: 20%; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 1s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            background: var(--gradient-mystical);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--warm-gray);
+            font-size: 1.15rem;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* Navigation Pills */
+        .nav-pills {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            color: var(--slate);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .nav-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .nav-pill.active {
+            background: var(--gradient-earth);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Cards - Vintage/Parchment Style */
+        .card {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 230, 211, 0.3));
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(139, 115, 85, 0.15);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(139, 115, 85, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-earth);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(139, 115, 85, 0.25);
+        }
+
+        .card h2 {
+            color: var(--midnight);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-earth);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        /* Psychoeducation Cards */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .concept-card {
+            background: linear-gradient(135deg, var(--cream) 0%, rgba(255, 255, 255, 0.9) 100%);
+            padding: 1.8rem;
+            border-radius: 16px;
+            border: 2px solid rgba(135, 168, 120, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .concept-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(135, 168, 120, 0.25);
+            border-color: var(--sage-green);
+        }
+
+        .concept-card h3 {
+            color: var(--earth-brown);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .concept-card p {
+            color: var(--slate);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .rune-symbol {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-warm);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Modality Stations */
+        .station-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .station-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, var(--cream) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(135, 168, 120, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .station-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-earth);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .station-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .station-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(135, 168, 120, 0.3);
+            border-color: var(--sage-green);
+        }
+
+        .station-card.selected {
+            border-color: var(--deep-teal);
+            background: linear-gradient(135deg, rgba(94, 234, 212, 0.1) 0%, var(--cream) 100%);
+            box-shadow: 0 10px 35px rgba(20, 184, 166, 0.3);
+        }
+
+        .station-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .station-card h3 {
+            color: var(--earth-brown);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .station-card p {
+            color: var(--warm-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .station-tag {
+            display: inline-block;
+            background: rgba(135, 168, 120, 0.15);
+            color: var(--earth-brown);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Activity Content */
+        .activity-content {
+            display: none;
+            margin-top: 2rem;
+            animation: slideUp 0.5s ease;
+        }
+
+        .activity-content.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .prompt-section {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(135, 168, 120, 0.2);
+        }
+
+        .prompt-section h4 {
+            color: var(--earth-brown);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prompt-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .prompt-list li {
+            color: var(--slate);
+            line-height: 2;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .prompt-list li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--sage-green);
+            font-size: 0.8rem;
+        }
+
+        /* Input Areas */
+        .reflection-area {
+            margin-top: 1.5rem;
+        }
+
+        .reflection-area label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--earth-brown);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .reflection-area textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid rgba(135, 168, 120, 0.3);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .reflection-area textarea:focus {
+            outline: none;
+            border-color: var(--sage-green);
+            box-shadow: 0 0 0 3px rgba(135, 168, 120, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.85rem 2.2rem;
+            background: var(--gradient-earth);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(135, 168, 120, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(135, 168, 120, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--earth-brown);
+            border: 2px solid var(--sage-green);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(135, 168, 120, 0.1);
+        }
+
+        .btn-grid {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Meditation/Opening Section */
+        .meditation-box {
+            background: linear-gradient(135deg, rgba(177, 156, 217, 0.08) 0%, rgba(135, 168, 120, 0.08) 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(135, 168, 120, 0.2);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .meditation-box blockquote {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--earth-brown);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .meditation-box cite {
+            color: var(--warm-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Integration Summary */
+        .parts-summary {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), var(--cream));
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--sage-green);
+            margin-top: 2rem;
+        }
+
+        .parts-summary h3 {
+            color: var(--earth-brown);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .part-entry {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--sage-green);
+        }
+
+        .part-entry h4 {
+            color: var(--deep-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .part-entry p {
+            color: var(--slate);
+            line-height: 1.7;
+        }
+
+        /* Pass Option */
+        .pass-option {
+            background: rgba(253, 164, 175, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px dashed var(--soft-coral);
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+        }
+
+        /* Timer for activities */
+        .timer-box {
+            display: inline-block;
+            background: rgba(135, 168, 120, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            color: var(--earth-brown);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 1rem; }
+            .card { padding: 1.5rem; }
+            .nav-pills { flex-direction: column; align-items: stretch; }
+            .nav-pill { text-align: center; }
+            .station-grid { grid-template-columns: 1fr; }
+            .btn-grid { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+
+        /* Loading Animation */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Info Tips */
+        .info-tip {
+            background: rgba(94, 234, 212, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-teal);
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--slate);
+        }
+
+        /* Music/Playlist Elements */
+        .playlist-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(135, 168, 120, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playlist-item:hover {
+            background: rgba(135, 168, 120, 0.1);
+        }
+
+        /* Movement Qualities */
+        .quality-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quality-tag:hover {
+            transform: scale(1.05);
+        }
+
+        .quality-tag.selected {
+            border-color: var(--deep-teal);
+            background: rgba(94, 234, 212, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div class="bg-circle bg-circle1"></div>
+    <div class="bg-circle bg-circle2"></div>
+    <div class="bg-circle bg-circle3"></div>
+
+    <!-- Decorative Runes -->
+    <div class="rune-decoration rune-1">ᚱ</div>
+    <div class="rune-decoration rune-2">ᛋ</div>
+    <div class="rune-decoration rune-3">ᛏ</div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Shadow & Light</h1>
+            <p class="subtitle">A Multi-Modal Journey Through Your Inner Parts</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-pills">
+            <button class="nav-pill active" onclick="showPage(0)">
+                ◈ Arrival & Opening
+            </button>
+            <button class="nav-pill" onclick="showPage(1)">
+                ᚱ Understanding Parts
+            </button>
+            <button class="nav-pill" onclick="showPage(2)">
+                ✦ Creative Exploration
+            </button>
+            <button class="nav-pill" onclick="showPage(3)">
+                ◉ Integration & Closing
+            </button>
+        </div>
+
+        <!-- Page 1: Opening & Meditation -->
+        <div class="page active" id="page1">
+            <div class="card">
+                <h2>
+                    <div class="icon">◈</div>
+                    Arriving to Your Inner World
+                </h2>
+                
+                <div class="meditation-box">
+                    <blockquote>
+                        "Perhaps all the dragons in our lives are princesses who are only waiting to see us act, just once, with beauty and courage."
+                    </blockquote>
+                    <cite>— Rainer Maria Rilke</cite>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.7); padding: 2rem; border-radius: 16px; line-height: 1.8;">
+                    <h3 style="color: var(--earth-brown); margin-bottom: 1rem;">Grounding Meditation (5 minutes)</h3>
+                    <p style="color: var(--slate); margin-bottom: 1rem;">
+                        Find a comfortable position. You might sit, stand, or lie down—whatever feels right for your body today.
+                    </p>
+                    <p style="color: var(--slate); margin-bottom: 1rem;">
+                        <strong>Take three deep breaths...</strong><br>
+                        In through your nose... Out through your mouth...<br>
+                        Let each exhale release any tension you're holding.
+                    </p>
+                    <p style="color: var(--slate); margin-bottom: 1rem;">
+                        <strong>Notice your body's contact with what supports you.</strong><br>
+                        Feel the ground beneath your feet, the chair beneath you, the weight of your body being held.
+                    </p>
+                    <p style="color: var(--slate); margin-bottom: 1rem;">
+                        <strong>Bring awareness to your inner landscape...</strong><br>
+                        Imagine your inner world as a vast, rich terrain. There are many parts of you that live here—some you know well, others you've barely met. Each one has wisdom. Each one has been trying to help you, in its own way.
+                    </p>
+                    <p style="color: var(--slate); margin-bottom: 1rem;">
+                        Today, we'll meet some of these parts through different creative languages: through art, through movement, through sound, through words, through voice, and through open exploration.
+                    </p>
+                    <p style="color: var(--earth-brown); font-weight: 600;">
+                        Take one more deep breath... and when you're ready, let's begin.
+                    </p>
+                </div>
+
+                <div class="btn-grid">
+                    <button class="btn" onclick="showPage(1)">Continue to Understanding Parts →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Psychoeducation -->
+        <div class="page" id="page2">
+            <div class="card">
+                <h2>
+                    <div class="icon">ᚱ</div>
+                    Understanding Your Inner Family
+                </h2>
+                <p style="color: var(--slate); margin-bottom: 2rem; line-height: 1.7; font-size: 1.05rem;">
+                    Internal Family Systems (IFS) teaches us that we're not just one unified self, but a rich community of parts. Each part has developed to help us survive, cope, or protect something precious within us.
+                </p>
+
+                <div class="concept-grid">
+                    <div class="concept-card" onclick="toggleExpand(this)">
+                        <span class="rune-symbol">ᛗ</span>
+                        <h3>Managers</h3>
+                        <p>These parts run the show day-to-day. They plan, control, perfect, please others, and keep you safe through staying in charge. They work hard to prevent painful feelings from emerging.</p>
+                        <div class="expandable" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(135, 168, 120, 0.2);">
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">
+                                <strong>Examples:</strong> The Inner Critic, The Perfectionist, The People-Pleaser, The Planner, The Caretaker
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" onclick="toggleExpand(this)">
+                        <span class="rune-symbol">ᚠ</span>
+                        <h3>Firefighters</h3>
+                        <p>When painful feelings do break through, these parts jump into emergency action. They use distraction, numbing, or intensity to put out the fire of emotional pain—fast.</p>
+                        <div class="expandable" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(135, 168, 120, 0.2);">
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">
+                                <strong>Examples:</strong> The Escapist, The Rebel, The Numb-er, The Binge-r, The Rage, The Dissociator
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" onclick="toggleExpand(this)">
+                        <span class="rune-symbol">ᛖ</span>
+                        <h3>Exiles</h3>
+                        <p>These are the young, vulnerable parts that carry painful emotions and memories. They hold our shame, fear, sadness, and loneliness. The other parts work to keep them locked away—but they long to be seen.</p>
+                        <div class="expandable" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(135, 168, 120, 0.2);">
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">
+                                <strong>Examples:</strong> The Wounded Child, The Abandoned One, The Ashamed Part, The Lonely Part, The Scared Part
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" onclick="toggleExpand(this)">
+                        <span class="rune-symbol">ᛋ</span>
+                        <h3>The Self</h3>
+                        <p>Beneath all the parts is your core Self—the wise, compassionate, curious you. The Self can hold all parts with care, help them feel seen, and gently guide the inner family toward healing.</p>
+                        <div class="expandable" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(135, 168, 120, 0.2);">
+                            <p style="font-size: 0.9rem; color: var(--warm-gray);">
+                                <strong>Qualities of Self:</strong> Curiosity, Compassion, Calm, Clarity, Confidence, Courage, Creativity, Connectedness
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-tip">
+                    ◆ <strong>Important:</strong> There are no "bad" parts. Every part developed to help you. Even the ones that cause pain today were once trying to protect something precious in you.
+                </div>
+
+                <div class="btn-grid">
+                    <button class="btn-secondary" onclick="showPage(0)">← Back to Opening</button>
+                    <button class="btn" onclick="showPage(2)">Explore Through Creativity →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Multi-Modal Exploration Stations -->
+        <div class="page" id="page3">
+            <div class="card">
+                <h2>
+                    <div class="icon">✦</div>
+                    Creative Exploration Stations
+                </h2>
+                <p style="color: var(--slate); margin-bottom: 2rem; line-height: 1.7; font-size: 1.05rem;">
+                    Choose one or more modalities to explore your inner parts. Each station offers a different creative language. There's no right way—follow your curiosity and what feels accessible today.
+                </p>
+
+                <div class="info-tip">
+                    ᛏ <strong>Remember:</strong> You can "pass" on any activity. You can engage deeply or lightly. You can do one station or all six. Honor what your system needs right now.
+                </div>
+
+                <!-- Station Selection -->
+                <div class="station-grid">
+                    <div class="station-card" onclick="selectStation('visual')">
+                        <span class="station-icon">△</span>
+                        <h3>Visual Arts Studio</h3>
+                        <p>Use color, shape, and image to give your parts visual form</p>
+                        <span class="station-tag">Drawing • Collage • Color</span>
+                    </div>
+
+                    <div class="station-card" onclick="selectStation('movement')">
+                        <span class="station-icon">◬</span>
+                        <h3>Movement Space</h3>
+                        <p>Embody your parts through gesture, posture, and dance</p>
+                        <span class="station-tag">Somatic • Laban • Dance</span>
+                    </div>
+
+                    <div class="station-card" onclick="selectStation('music')">
+                        <span class="station-icon">≋</span>
+                        <h3>Sound Sanctuary</h3>
+                        <p>Discover the soundtrack and rhythms of your inner world</p>
+                        <span class="station-tag">Playlist • Rhythm • Voice</span>
+                    </div>
+
+                    <div class="station-card" onclick="selectStation('writing')">
+                        <span class="station-icon">ᛋ</span>
+                        <h3>Writing Chamber</h3>
+                        <p>Give your parts language through words, poetry, and letters</p>
+                        <span class="station-tag">Journal • Poetry • Dialogue</span>
+                    </div>
+
+                    <div class="station-card" onclick="selectStation('drama')">
+                        <span class="station-icon">⚯</span>
+                        <h3>Drama Studio</h3>
+                        <p>Speak as your parts, explore their voices and personas</p>
+                        <span class="station-tag">Voice • Character • Role-Play</span>
+                    </div>
+
+                    <div class="station-card" onclick="selectStation('intuitive')">
+                        <span class="station-icon">✧</span>
+                        <h3>Intuitive Exploration</h3>
+                        <p>Follow your creative instinct without a prescribed path</p>
+                        <span class="station-tag">Open • Free • Emergent</span>
+                    </div>
+                </div>
+
+                <!-- Visual Arts Activity -->
+                <div id="visual-activity" class="activity-content">
+                    <div class="card">
+                        <h2>
+                            <div class="icon">△</div>
+                            Visual Arts Studio
+                        </h2>
+                        
+                        <div class="timer-box">⧗ Suggested time: 20-30 minutes</div>
+
+                        <div class="prompt-section">
+                            <h4>△ Art Prompts for Parts Work</h4>
+                            <ul class="prompt-list">
+                                <li><strong>Parts Portrait:</strong> Draw or collage 3-5 different parts of you. Give each one a visual form, color, size, and placement on the page. What does each one look like? Where do they live in relation to each other?</li>
+                                <li><strong>Part's Landscape:</strong> If one part of you had its own world, what would it look like? Draw or paint this inner landscape.</li>
+                                <li><strong>Color Mapping:</strong> Assign a color to different parts. Create an abstract color composition showing how these parts interact, overlap, or stay separate.</li>
+                                <li><strong>Before & After:</strong> Draw how your parts felt before you understood them vs. now that you're getting curious about them.</li>
+                                <li><strong>The Part I'm Meeting Today:</strong> Focus on one part. Give it visual form. What are its features? Its textures? Its energy?</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-tip">
+                            ◇ <strong>Materials you might use:</strong> Paper, markers, colored pencils, crayons, magazine images, scissors, glue, paint, pastels—whatever you have available. Digital drawing works too!
+                        </div>
+
+                        <div class="reflection-area">
+                            <label>Describe your artwork and what you discovered:</label>
+                            <textarea id="visual-reflection" placeholder="What parts emerged in your art? What surprised you? What did you notice about their relationships to each other?"></textarea>
+                        </div>
+
+                        <div class="pass-option">
+                            ◈ Remember: If drawing feels like too much today, you can simply close your eyes and imagine the colors and shapes of your parts, then write about what you "saw" in your mind's eye.
+                        </div>
+
+                        <div class="btn-grid">
+                            <button class="btn-secondary" onclick="closeStation()">← Back to Stations</button>
+                            <button class="btn" onclick="saveReflection('visual')">Save & Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movement Activity -->
+                <div id="movement-activity" class="activity-content">
+                    <div class="card">
+                        <h2>
+                            <div class="icon">◬</div>
+                            Movement Space
+                        </h2>
+                        
+                        <div class="timer-box">⧗ Suggested time: 15-25 minutes</div>
+
+                        <div class="prompt-section">
+                            <h4>◬ Movement Prompts for Parts Work</h4>
+                            <ul class="prompt-list">
+                                <li><strong>Embodying Parts:</strong> Move as 3 different parts of you. How does each one move? What's their tempo, their weight, their flow? Notice the transitions between them.</li>
+                                <li><strong>Laban Exploration:</strong> Choose a part. Explore it through different movement qualities: light vs. strong, direct vs. indirect, sudden vs. sustained, bound vs. free. Which qualities match this part?</li>
+                                <li><strong>Parts Conversation:</strong> Let two parts have a movement dialogue. They might approach, retreat, mirror, oppose, or dance together.</li>
+                                <li><strong>Frozen Sculptures:</strong> Create a still shape with your body that represents a part. Hold it. Feel what it's like to be this part. Then gently release and shake it out.</li>
+                                <li><strong>Journey Through Parts:</strong> Move continuously for 5-10 minutes, letting different parts emerge and shift. Notice who shows up.</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin: 1.5rem 0;">
+                            <h4 style="color: var(--earth-brown); margin-bottom: 0.75rem;">Select Movement Qualities (click any that fit your parts):</h4>
+                            <div>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(253, 164, 175, 0.2);">Gentle</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(135, 168, 120, 0.2);">Strong</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(192, 132, 252, 0.2);">Quick</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(147, 197, 253, 0.2);">Slow</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(253, 164, 175, 0.2);">Flowing</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(135, 168, 120, 0.2);">Bound</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(192, 132, 252, 0.2);">Expansive</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(147, 197, 253, 0.2);">Contracted</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(253, 164, 175, 0.2);">Spiraling</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(135, 168, 120, 0.2);">Shaking</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(192, 132, 252, 0.2);">Grounded</span>
+                                <span class="quality-tag" onclick="toggleQuality(this)" style="background: rgba(147, 197, 253, 0.2);">Floating</span>
+                            </div>
+                        </div>
+
+                        <div class="info-tip">
+                            ◇ <strong>Note:</strong> You can do this sitting, standing, or lying down. Movement doesn't have to be big—even micro-movements and gestures count. Let your body have its own intelligence.
+                        </div>
+
+                        <div class="reflection-area">
+                            <label>What did you notice in your body and movement?</label>
+                            <textarea id="movement-reflection" placeholder="Which parts showed up in movement? What sensations arose? What surprised you about how your parts moved?"></textarea>
+                        </div>
+
+                        <div class="pass-option">
+                            ◈ Not feeling movement today? You can imagine moving as your parts, or simply notice what impulses arise in your body as you think about them.
+                        </div>
+
+                        <div class="btn-grid">
+                            <button class="btn-secondary" onclick="closeStation()">← Back to Stations</button>
+                            <button class="btn" onclick="saveReflection('movement')">Save & Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Music Activity -->
+                <div id="music-activity" class="activity-content">
+                    <div class="card">
+                        <h2>
+                            <div class="icon">≋</div>
+                            Sound Sanctuary
+                        </h2>
+                        
+                        <div class="timer-box">⧗ Suggested time: 20-30 minutes</div>
+
+                        <div class="prompt-section">
+                            <h4>≋ Sound & Music Prompts</h4>
+                            <ul class="prompt-list">
+                                <li><strong>Parts Playlist:</strong> Create a playlist where each song represents a different part. What's the Manager's song? The Exile's? The Firefighter's? The Self's?</li>
+                                <li><strong>Sonic Portrait:</strong> If a part of you made sound, what would it sound like? Use your voice, hum, sing, tap, or imagine instruments. Create a soundscape for 2-3 parts.</li>
+                                <li><strong>Rhythm Exploration:</strong> Give each part a rhythm. Clap, tap, or drum it out. What's the tempo of your Inner Critic? Your Playful Child? Your Wise Self?</li>
+                                <li><strong>Musical Dialogue:</strong> Have two parts "speak" through humming, toning, or singing. What do they sound like in conversation?</li>
+                                <li><strong>Song Association:</strong> Listen to 3-5 songs and notice which parts of you resonate with each one. What feelings, memories, or parts get activated?</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin: 1.5rem 0;">
+                            <h4 style="color: var(--earth-brown); margin-bottom: 0.75rem;">Musical Qualities for Your Parts:</h4>
+                            <div class="playlist-item">
+                                <span>◇ <strong>High Energy / Fast Tempo</strong></span>
+                                <span style="font-size: 0.85rem; color: var(--warm-gray);">Manager, Firefighter</span>
+                            </div>
+                            <div class="playlist-item">
+                                <span>◆ <strong>Soft / Gentle / Slow</strong></span>
+                                <span style="font-size: 0.85rem; color: var(--warm-gray);">Exile, Vulnerable Part</span>
+                            </div>
+                            <div class="playlist-item">
+                                <span>◈ <strong>Rhythmic / Driving / Powerful</strong></span>
+                                <span style="font-size: 0.85rem; color: var(--warm-gray);">Protector, Warrior Part</span>
+                            </div>
+                            <div class="playlist-item">
+                                <span>◉ <strong>Spacious / Ambient / Flowing</strong></span>
+                                <span style="font-size: 0.85rem; color: var(--warm-gray);">Self, Wise Observer</span>
+                            </div>
+                            <div class="playlist-item">
+                                <span>◊ <strong>Intense / Chaotic / Loud</strong></span>
+                                <span style="font-size: 0.85rem; color: var(--warm-gray);">Angry Part, Reactive Part</span>
+                            </div>
+                        </div>
+
+                        <div class="info-tip">
+                            ◇ <strong>Resources:</strong> Use Spotify, YouTube, Apple Music, or just your own voice. You can also use household objects as instruments or work in silence and imagine sounds.
+                        </div>
+
+                        <div class="reflection-area">
+                            <label>Document your sonic discoveries:</label>
+                            <textarea id="music-reflection" placeholder="What songs or sounds represent your parts? What did you notice about their musical qualities? Did any parts surprise you with their sound?"></textarea>
+                        </div>
+
+                        <div class="pass-option">
+                            ◈ Sound-sensitive today? You can work in silence and write about what you imagine the sounds would be like, or focus on one very quiet sound.
+                        </div>
+
+                        <div class="btn-grid">
+                            <button class="btn-secondary" onclick="closeStation()">← Back to Stations</button>
+                            <button class="btn" onclick="saveReflection('music')">Save & Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Writing Activity -->
+                <div id="writing-activity" class="activity-content">
+                    <div class="card">
+                        <h2>
+                            <div class="icon">ᛋ</div>
+                            Writing Chamber
+                        </h2>
+                        
+                        <div class="timer-box">⧗ Suggested time: 20-30 minutes</div>
+
+                        <div class="prompt-section">
+                            <h4>ᛋ Writing Prompts for Parts Work</h4>
+                            <ul class="prompt-list">
+                                <li><strong>Letter from a Part:</strong> Choose one part and let it write you a letter. What does it want you to know? What has it been trying to tell you?</li>
+                                <li><strong>Parts Dialogue:</strong> Write a conversation between two parts. Let them speak freely. What do they say to each other?</li>
+                                <li><strong>Part's Origin Story:</strong> Choose a protective part (Manager or Firefighter) and write its origin story. When did it first appear? What was it protecting you from?</li>
+                                <li><strong>Meeting an Exile:</strong> Write from the perspective of Self meeting a young, exiled part. Approach with curiosity and compassion. What does this meeting look like?</li>
+                                <li><strong>Parts Poetry:</strong> Write a poem that captures the landscape of your inner family. Use metaphor, image, and feeling.</li>
+                                <li><strong>Part's Day:</strong> Describe a typical day as narrated by one of your parts. How does it experience your life?</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-tip">
+                            ◇ <strong>Writing Approach:</strong> Don't edit yourself. Let the words flow. You can use stream-of-consciousness, structured paragraphs, poetry, lists, or any form that feels right. This is for you, not for anyone else.
+                        </div>
+
+                        <div class="reflection-area">
+                            <label>Your writing space (write freely here):</label>
+                            <textarea id="writing-reflection" style="min-height: 250px;" placeholder="Let your parts speak through words..."></textarea>
+                        </div>
+
+                        <div class="pass-option">
+                            ◈ Writing feels stuck? Try writing with your non-dominant hand, or dictate into your phone's voice recorder and transcribe later. Or simply make a list of one-word descriptions for each part.
+                        </div>
+
+                        <div class="btn-grid">
+                            <button class="btn-secondary" onclick="closeStation()">← Back to Stations</button>
+                            <button class="btn" onclick="saveReflection('writing')">Save & Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drama Activity -->
+                <div id="drama-activity" class="activity-content">
+                    <div class="card">
+                        <h2>
+                            <div class="icon">⚯</div>
+                            Drama Studio
+                        </h2>
+                        
+                        <div class="timer-box">⧗ Suggested time: 15-25 minutes</div>
+
+                        <div class="prompt-section">
+                            <h4>⚯ Drama & Voice Prompts</h4>
+                            <ul class="prompt-list">
+                                <li><strong>Voice Qualities:</strong> Speak as 3-4 different parts. What does each voice sound like? Is it loud or quiet? Fast or slow? High or low? What's the tone—critical, soothing, anxious, playful?</li>
+                                <li><strong>Parts on Stage:</strong> Imagine your parts as characters in a play. What would they say? What scenes would they enact? Speak their lines out loud or in a whisper.</li>
+                                <li><strong>Hot Seat:</strong> Sit in a chair and "become" one part at a time. Answer questions from the perspective of that part: "What do you want?" "What are you afraid of?" "What do you need?"</li>
+                                <li><strong>Role Reversal:</strong> Speak as your Inner Critic, then switch and speak back to it as your Self. Have a dialogue.</li>
+                                <li><strong>Parts Monologue:</strong> Give one part a 2-3 minute monologue. Let it tell its full story in first person.</li>
+                                <li><strong>Sound & Fury:</strong> Let an intense part (anger, fear, urgency) express itself through vocal toning, shouting into a pillow, or making non-word sounds.</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px;">
+                            <h4 style="color: var(--earth-brown); margin-bottom: 1rem;">Voice Exploration Chart</h4>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: rgba(135, 168, 120, 0.15);">
+                                        <th style="padding: 0.75rem; text-align: left; color: var(--earth-brown);">Part</th>
+                                        <th style="padding: 0.75rem; text-align: left; color: var(--earth-brown);">Voice Quality</th>
+                                        <th style="padding: 0.75rem; text-align: left; color: var(--earth-brown);">Key Phrase</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid rgba(135, 168, 120, 0.1);">
+                                        <td style="padding: 0.75rem; color: var(--slate);">Inner Critic</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem;">Harsh, fast, judgmental</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem; font-style: italic;">"You're not good enough"</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid rgba(135, 168, 120, 0.1);">
+                                        <td style="padding: 0.75rem; color: var(--slate);">Anxious Part</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem;">High-pitched, rapid, tight</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem; font-style: italic;">"What if something bad happens?"</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid rgba(135, 168, 120, 0.1);">
+                                        <td style="padding: 0.75rem; color: var(--slate);">Young Exile</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem;">Soft, small, timid</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem; font-style: italic;">"Please don't leave me"</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; color: var(--slate);">Wise Self</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem;">Calm, grounded, spacious</td>
+                                        <td style="padding: 0.75rem; color: var(--warm-gray); font-size: 0.9rem; font-style: italic;">"I'm here with you"</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="info-tip">
+                            ◇ <strong>Note:</strong> This can feel silly or vulnerable! That's okay. You can do this alone in a private space, whisper, or even mouth the words silently. The point is to give parts a voice.
+                        </div>
+
+                        <div class="reflection-area">
+                            <label>What emerged when you gave your parts voice?</label>
+                            <textarea id="drama-reflection" placeholder="Which parts spoke? What did they say? What surprised you about their voices or messages?"></textarea>
+                        </div>
+
+                        <div class="pass-option">
+                            ◈ Voice work feels too vulnerable? Write what the parts would say instead, or simply notice what voice tone arises when you think of each part—you don't have to actually speak.
+                        </div>
+
+                        <div class="btn-grid">
+                            <button class="btn-secondary" onclick="closeStation()">← Back to Stations</button>
+                            <button class="btn" onclick="saveReflection('drama')">Save & Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intuitive Activity -->
+                <div id="intuitive-activity" class="activity-content">
+                    <div class="card">
+                        <h2>
+                            <div class="icon">✧</div>
+                            Intuitive Exploration
+                        </h2>
+                        
+                        <div class="timer-box">⧗ Suggested time: Open-ended</div>
+
+                        <div class="prompt-section">
+                            <h4>✧ Following Your Creative Impulse</h4>
+                            <p style="color: var(--slate); line-height: 1.8; margin-bottom: 1rem;">
+                                This station has no prescribed path. You're invited to explore your parts in whatever way emerges naturally. This might combine multiple modalities, or it might be something entirely unique to you.
+                            </p>
+                            <p style="color: var(--slate); line-height: 1.8; margin-bottom: 1rem;">
+                                <strong>Trust your instinct.</strong> What wants to happen? What medium is calling you? What part wants to be witnessed in its own way?
+                            </p>
+                        </div>
+
+                        <div style="background: rgba(177, 156, 217, 0.1); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
+                            <h4 style="color: var(--earth-brown); margin-bottom: 1rem;">Some Possibilities (not prescriptions):</h4>
+                            <ul class="prompt-list">
+                                <li>Create an altar or assemblage for a part using found objects</li>
+                                <li>Dance while drawing, letting movement inform the visual art</li>
+                                <li>Write poetry while listening to music that represents different parts</li>
+                                <li>Create a multimedia collage combining image, text, and symbolic objects</li>
+                                <li>Build a sandtray or 3D sculpture showing your inner landscape</li>
+                                <li>Combine voice recording with visual journaling</li>
+                                <li>Create a "parts shrine" with photos, objects, colors, and words</li>
+                                <li>Make a video or digital story featuring your parts</li>
+                                <li>Simply sit in contemplation and see what wants to emerge</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-tip">
+                            ◇ <strong>Remember:</strong> There is no wrong way to do this. This is about following what feels alive and true for you. Let your Self lead the way.
+                        </div>
+
+                        <div class="reflection-area">
+                            <label>Capture what emerged in your intuitive exploration:</label>
+                            <textarea id="intuitive-reflection" style="min-height: 250px;" placeholder="What did you create? What process unfolded? What did you discover about your parts through this open exploration?"></textarea>
+                        </div>
+
+                        <div class="pass-option">
+                            ◈ Sometimes the most intuitive thing is to rest. If that's what your system needs, that's perfect. You can simply sit with the question: "What do my parts need right now?" and let the answer be stillness.
+                        </div>
+
+                        <div class="btn-grid">
+                            <button class="btn-secondary" onclick="closeStation()">← Back to Stations</button>
+                            <button class="btn" onclick="saveReflection('intuitive')">Save & Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="btn-grid" style="margin-top: 2rem;">
+                <button class="btn-secondary" onclick="showPage(1)">← Back to Understanding</button>
+                <button class="btn" onclick="showPage(3)">Move to Integration →</button>
+            </div>
+        </div>
+
+        <!-- Page 4: Integration & Closing -->
+        <div class="page" id="page4">
+            <div class="card">
+                <h2>
+                    <div class="icon">◉</div>
+                    Integration & Closing
+                </h2>
+                
+                <p style="color: var(--slate); margin-bottom: 2rem; line-height: 1.7; font-size: 1.05rem;">
+                    You've met your parts through multiple creative languages. Now, let's gather what you've discovered and create a map of your inner landscape.
+                </p>
+
+                <div class="parts-summary">
+                    <h3>Your Inner Parts Map</h3>
+                    <p style="color: var(--warm-gray); margin-bottom: 2rem; line-height: 1.7;">
+                        Below, document the parts you met today. Give them names, describe them, note what you learned about them through each creative modality.
+                    </p>
+
+                    <div id="parts-map-container">
+                        <!-- Parts entries will be generated here -->
+                    </div>
+
+                    <button class="btn" onclick="addPartEntry()" style="margin-top: 1rem;">+ Add Another Part</button>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(177, 156, 217, 0.05) 0%, rgba(135, 168, 120, 0.05) 100%);">
+                    <h3 style="color: var(--earth-brown); margin-bottom: 1rem;">Integration Reflection</h3>
+                    <div class="reflection-area">
+                        <label>What did you learn about your inner family today?</label>
+                        <textarea id="integration-reflection" placeholder="How do your parts relate to each other? Which parts need more attention? What surprised you? What do you want to remember?"></textarea>
+                    </div>
+                    <div class="reflection-area">
+                        <label>Commitment to Self-Leadership:</label>
+                        <textarea id="commitment-reflection" placeholder="How can you practice staying in Self when your parts get activated? What's one way you can show compassion to a part this week?"></textarea>
+                    </div>
+                </div>
+
+                <div class="meditation-box" style="margin-top: 2rem;">
+                    <h3 style="color: var(--earth-brown); margin-bottom: 1rem;">Closing Meditation</h3>
+                    <p style="color: var(--slate); line-height: 1.8; text-align: left; margin-bottom: 1rem;">
+                        Take a moment to appreciate all the parts you met today. Each one is doing its best to help you navigate life. Even the ones that cause pain are trying to protect something precious.
+                    </p>
+                    <p style="color: var(--slate); line-height: 1.8; text-align: left; margin-bottom: 1rem;">
+                        From your Self—your wise, compassionate center—send gratitude to each part. Thank them for their efforts. Let them know you see them now.
+                    </p>
+                    <p style="color: var(--slate); line-height: 1.8; text-align: left; margin-bottom: 1rem;">
+                        Take three deep breaths...
+                    </p>
+                    <blockquote style="margin-top: 1.5rem;">
+                        "And you? When will you begin that long journey into yourself?"
+                    </blockquote>
+                    <cite>— Rumi</cite>
+                </div>
+
+                <div class="btn-grid" style="margin-top: 2rem;">
+                    <button class="btn-secondary" onclick="showPage(2)">← Back to Exploration</button>
+                    <button class="btn" onclick="generateSummary()">Generate Summary Document</button>
+                </div>
+
+                <div id="final-summary" style="display: none; margin-top: 2rem; padding: 2rem; background: white; border-radius: 16px; border: 2px solid var(--sage-green);">
+                    <!-- Generated summary will appear here -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Page Navigation
+        function showPage(pageIndex) {
+            const pages = document.querySelectorAll('.page');
+            const pills = document.querySelectorAll('.nav-pill');
+            
+            pages.forEach((page, index) => {
+                page.classList.toggle('active', index === pageIndex);
+            });
+            
+            pills.forEach((pill, index) => {
+                pill.classList.toggle('active', index === pageIndex);
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle expandable concept cards
+        function toggleExpand(card) {
+            const expandable = card.querySelector('.expandable');
+            if (expandable) {
+                if (expandable.style.display === 'none' || !expandable.style.display) {
+                    expandable.style.display = 'block';
+                    card.style.background = 'linear-gradient(135deg, rgba(135, 168, 120, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%)';
+                } else {
+                    expandable.style.display = 'none';
+                    card.style.background = 'linear-gradient(135deg, var(--cream) 0%, rgba(255, 255, 255, 0.9) 100%)';
+                }
+            }
+        }
+
+        // Station Selection
+        let currentStation = null;
+
+        function selectStation(stationName) {
+            // Hide all activities
+            document.querySelectorAll('.activity-content').forEach(activity => {
+                activity.classList.remove('show');
+            });
+
+            // Remove selection from all cards
+            document.querySelectorAll('.station-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Show selected activity
+            const activityId = stationName + '-activity';
+            const activity = document.getElementById(activityId);
+            if (activity) {
+                activity.classList.add('show');
+                currentStation = stationName;
+                
+                // Mark card as selected
+                event.currentTarget.classList.add('selected');
+                
+                // Scroll to activity
+                setTimeout(() => {
+                    activity.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        function closeStation() {
+            document.querySelectorAll('.activity-content').forEach(activity => {
+                activity.classList.remove('show');
+            });
+            document.querySelectorAll('.station-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            currentStation = null;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Quality tags toggle
+        function toggleQuality(tag) {
+            tag.classList.toggle('selected');
+        }
+
+        // Save reflection from modality
+        const reflections = {
+            visual: '',
+            movement: '',
+            music: '',
+            writing: '',
+            drama: '',
+            intuitive: ''
+        };
+
+        function saveReflection(modality) {
+            const textarea = document.getElementById(modality + '-reflection');
+            if (textarea) {
+                reflections[modality] = textarea.value;
+                alert('✓ Reflection saved! You can continue exploring other stations or move to Integration.');
+                closeStation();
+            }
+        }
+
+        // Parts Map
+        let partCount = 0;
+
+        function addPartEntry() {
+            partCount++;
+            const container = document.getElementById('parts-map-container');
+            const entryHTML = `
+                <div class="part-entry" id="part-${partCount}">
+                    <h4 contenteditable="true" style="outline: none; cursor: text;">Part #${partCount} - Give it a name...</h4>
+                    <p contenteditable="true" style="outline: none; cursor: text; min-height: 60px;">
+                        Describe this part... What role does it play? What did you learn about it through art, movement, sound, words, voice, or intuitive exploration?
+                    </p>
+                    <button onclick="removePartEntry(${partCount})" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: rgba(253, 164, 175, 0.2); border: none; border-radius: 20px; cursor: pointer; color: var(--warm-gray); font-size: 0.85rem;">Remove</button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', entryHTML);
+        }
+
+        function removePartEntry(id) {
+            const entry = document.getElementById('part-' + id);
+            if (entry && confirm('Remove this part entry?')) {
+                entry.remove();
+            }
+        }
+
+        // Generate final summary
+        function generateSummary() {
+            const integrationText = document.getElementById('integration-reflection').value;
+            const commitmentText = document.getElementById('commitment-reflection').value;
+
+            const summaryDiv = document.getElementById('final-summary');
+            
+            let summaryHTML = `
+                <h3 style="color: var(--earth-brown); margin-bottom: 1.5rem;">Your Shadow & Light Journey Summary</h3>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="color: var(--deep-teal); margin-bottom: 1rem;">Modalities You Explored:</h4>
+                    <ul style="list-style: none; padding: 0;">
+            `;
+
+            // List completed modalities
+            for (const [modality, content] of Object.entries(reflections)) {
+                if (content.trim()) {
+                    const modalityNames = {
+                        visual: '△ Visual Arts',
+                        movement: '◬ Movement',
+                        music: '≋ Music & Sound',
+                        writing: 'ᛋ Writing',
+                        drama: '⚯ Drama & Voice',
+                        intuitive: '✧ Intuitive Exploration'
+                    };
+                    summaryHTML += `
+                        <li style="padding: 1rem; background: rgba(135, 168, 120, 0.1); border-radius: 8px; margin-bottom: 0.75rem;">
+                            <strong>${modalityNames[modality]}</strong>
+                            <p style="margin-top: 0.5rem; color: var(--slate); font-size: 0.95rem;">${content.substring(0, 200)}${content.length > 200 ? '...' : ''}</p>
+                        </li>
+                    `;
+                }
+            }
+
+            summaryHTML += `
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="color: var(--deep-teal); margin-bottom: 1rem;">Parts You Met:</h4>
+            `;
+
+            // Gather all parts entries
+            const partEntries = document.querySelectorAll('.part-entry h4');
+            partEntries.forEach(entry => {
+                const partName = entry.textContent;
+                const partDesc = entry.nextElementSibling.textContent;
+                summaryHTML += `
+                    <div style="padding: 1rem; background: rgba(255, 255, 255, 0.7); border-left: 4px solid var(--sage-green); border-radius: 8px; margin-bottom: 1rem;">
+                        <strong style="color: var(--earth-brown);">${partName}</strong>
+                        <p style="margin-top: 0.5rem; color: var(--slate); font-size: 0.95rem;">${partDesc}</p>
+                    </div>
+                `;
+            });
+
+            summaryHTML += `
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="color: var(--deep-teal); margin-bottom: 1rem;">Integration Insights:</h4>
+                    <p style="color: var(--slate); line-height: 1.7; background: rgba(177, 156, 217, 0.05); padding: 1.5rem; border-radius: 12px;">
+                        ${integrationText || 'No integration reflection recorded.'}
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="color: var(--deep-teal); margin-bottom: 1rem;">Your Commitment:</h4>
+                    <p style="color: var(--slate); line-height: 1.7; background: rgba(135, 168, 120, 0.05); padding: 1.5rem; border-radius: 12px;">
+                        ${commitmentText || 'No commitment recorded.'}
+                    </p>
+                </div>
+
+                <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(177, 156, 217, 0.08) 0%, rgba(135, 168, 120, 0.08) 100%); border-radius: 12px;">
+                    <p style="color: var(--earth-brown); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">
+                        Thank you for meeting your parts with curiosity and compassion.
+                    </p>
+                    <p style="color: var(--warm-gray); font-style: italic;">
+                        May you continue to lead from Self. May all your parts know they are welcome.
+                    </p>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn" onclick="printSummary()">◈ Print/Save Summary</button>
+                    <button class="btn-secondary" onclick="location.reload()">◉ Start New Journey</button>
+                </div>
+            `;
+
+            summaryDiv.innerHTML = summaryHTML;
+            summaryDiv.style.display = 'block';
+            summaryDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function printSummary() {
+            window.print();
+        }
+
+        // Initialize with one part entry
+        window.addEventListener('load', () => {
+            addPartEntry();
+        });
+    </script>
+</body>
+</html>
